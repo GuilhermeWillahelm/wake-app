@@ -19,6 +19,5 @@ namespace WakeBlazor.Models
         public int CountFollows { get; set; }
         public int UserId { get; set; }
         public virtual User? User { get; set; }
-        public List<PostVideo>? PostVideos { get; set; }
     }
 }
