@@ -1,4 +1,9 @@
 ﻿@page "/"
+@using Dtos
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Threading.Tasks
+@inject HttpClient Http
 
 
 @foreach (var item in postVideos)
@@ -11,7 +16,7 @@
                 <ul style="padding:0px;">
                     <li style="display:inline-block;">
                         <a>
-                            <img src="@item.Channel.IconChannel" style="border:none; width:50px; height:50px;" />
+                            <img src="@item.ChannelDto.IconChannel" style="border:none; width:50px; height:50px;" />
                         </a>
                     </li>
                     <li style="display:inline-block;">
@@ -26,9 +31,8 @@
 }
 
 @code {
-    private List<PostVideo> postVideos = new List<PostVideo>();
-    string url = "https://localhost:7010";
-    private PostVideoRepository _repository;
+    private List<PostVideoDto> postVideos = new List<PostVideoDto>();
+    string url = "https://localhost:7099/api/";
 
-    protected override async Task OnInitializedAsync() => postVideos = await _repository.GetAllVideos();
-    }
+    protected override async Task OnInitializedAsync() => postVideos = await Http.GetFromJsonAsync<List<PostVideoDto>>(url + "PostVideos");
+}
