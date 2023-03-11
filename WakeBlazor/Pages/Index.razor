@@ -1,0 +1,34 @@
+﻿@page "/"
+
+
+@foreach (var item in postVideos)
+{
+    <a>
+        <div class="card-1 d-inline-block" style="width: 19.5rem; margin: 8px;">
+
+            <img src="@item.ThumbImage" class="card-img-top" alt="...">
+            <div class="card-body">
+                <ul style="padding:0px;">
+                    <li style="display:inline-block;">
+                        <a>
+                            <img src="@item.Channel.IconChannel" style="border:none; width:50px; height:50px;" />
+                        </a>
+                    </li>
+                    <li style="display:inline-block;">
+                        <a>
+                            <p class="card-text">@item.Title)</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </a>
+}
+
+@code {
+    private List<PostVideo> postVideos = new List<PostVideo>();
+    string url = "https://localhost:7010";
+    private PostVideoRepository _repository;
+
+    protected override async Task OnInitializedAsync() => postVideos = await _repository.GetAllVideos();
+    }
